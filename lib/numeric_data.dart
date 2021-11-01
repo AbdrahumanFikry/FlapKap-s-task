@@ -1,3 +1,4 @@
+import 'package:flap_kap_task/analysis_view.dart';
 import 'package:flap_kap_task/data.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,8 @@ class _NumericDataState extends State<NumericData> {
     totalCount = data.length;
     double totalPrices = 0.0;
     for (final order in data) {
-      final price = (order['price'] ?? '0.0').toString().replaceAll(',', '');
+      final String price =
+          (order['price'] ?? '0.0').toString().replaceAll(',', '');
       totalPrices += double.tryParse(price)!;
       if (order['status'] == 'RETURNED') {
         numOfReturns += 1;
@@ -59,8 +61,13 @@ class _NumericDataState extends State<NumericData> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'To graph',
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => AnalysisView(),
+          ),
+        ),
+        tooltip: 'Graph',
         child: Icon(Icons.auto_graph_rounded),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
